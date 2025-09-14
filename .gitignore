@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+!agents
+!agents/**/*
+!commands
+!commands/**/*
+!docs
+!docs/**/*
+!README.md
+!CLAUDE.md
+!.gitignore
