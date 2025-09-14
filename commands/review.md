@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git diff:*), Bash(git branch:*), Bash(git log:*), Bash(git status:*)
+allowed-tools: Bash(git diff:*), Bash(git branch:*), Bash(git log:*), Bash(git status:*), Bash(git show:*), Bash(echo:*)
 description: Comprehensive code review as a Senior Engineer
 argument-hint: [branch] (optional)
 ---
@@ -14,14 +14,17 @@ Current branch: !`git branch --show-current`
 **Repository status:**
 !`git status --porcelain`
 
-**Recent commits for context:**
-!`git log --oneline -5`
+**Recent commits (if any):**
+!`git log --oneline -5 2>/dev/null || echo "No commits yet"`
 
-**Changes to review:**
-!`if git status --porcelain | grep -q .; then echo "=== Working Directory Changes ==="; git diff --name-status; git diff --cached --name-status; else echo "=== No uncommitted changes ==="; echo "Showing recent commit:"; git show --name-status HEAD; fi`
+**Staged changes:**
+!`git diff --cached --name-status`
+
+**Unstaged changes:**
+!`git diff --name-status`
 
 **Full diff for review:**
-!`if git status --porcelain | grep -q .; then git diff HEAD; else git show HEAD; fi`
+!`git diff HEAD 2>/dev/null || git diff --cached`
 </gather_context>
 
 <review_analysis>
